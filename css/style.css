@@ -1,0 +1,291 @@
+body {
+    background-color: #ffffff;
+    backface-visibility: hidden;
+}
+
+p {
+    margin: 2px;
+    padding: 1px;
+}
+
+.nav-logo {
+    width: 10%;
+}
+
+.monospace {
+    font-family: monospace;
+}
+
+.comic {
+    font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+.navbar-nav .active {
+    font-weight: bold;
+    text-shadow: #777 .5px .5px 4px;
+}
+
+.navbar-nav .active:hover {
+    transform: translateY(-4px);
+    transition: .8s all;
+}
+
+.nav-link {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#headSlide {
+    height: 92vh;
+    margin-top: 50px;
+}
+
+
+/* #nav-slant {
+    height: 100%;
+    padding: 20px;
+    background-color: #727272;
+    transform: translateX(24%);
+    padding-right: 25%;
+} */
+
+#background-1 {
+    background-size: cover;
+    background-image: url('../img/img6.png');
+    background-color: rgba(0, 0, 0, 0.7);
+    background-blend-mode: overlay;
+    background-position: center;
+}
+
+#background-2 {
+    background: url('../img/img2.jpg');
+    background-color: rgba(0, 0, 0, 0.7);
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-position: center;
+}
+
+#background-3 {
+    background-image: url('../img/img4.jpg');
+    background-color: rgba(0, 0, 0, 0.7);
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-position: center;
+}
+
+.carousel-item {
+    height: 92vh;
+}
+
+#headSlide .carousel-caption {
+    top: 40%;
+    left: 5%;
+    width: 90%;
+    transform: translateY(-50px)
+}
+
+#head-caption {
+    top: 50%;
+    font-family: monospace;
+    letter-spacing: 5px;
+    display: block;
+    animation: dropTop 1.3s .7s ease-in;
+    animation-fill-mode: backwards;
+    text-transform: uppercase;
+    font-size: 23px;
+}
+
+#under-caption {
+    font-family: monospace;
+    display: block;
+    /* font-size: 11px; */
+    animation: display 1s 2s ease-out;
+    animation-fill-mode: backwards;
+}
+
+.carousel-control-prev {
+    width: 5%;
+}
+
+.carousel-control-next {
+    width: 5%;
+}
+
+.product-slide.card {
+    transition: all .7s;
+}
+
+.product-slide .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 5px 10px #777;
+    transition: all .5s;
+}
+
+#search {
+    background-image: url('../img/background-business-clean-811101.jpg');
+    background-color: rgba(0, 0, 0, 0.7);
+    background-blend-mode: overlay !important;
+    background-size: cover;
+    /* height: 25vh; */
+}
+
+#products {
+    background-image: url('../img/agric.jpg');
+    background-color: rgba(0, 0, 0, 0.6);
+    background-blend-mode: overlay !important;
+    background-size: cover;
+}
+
+.slick-next:before,
+.slick-prev:before {
+    color: #777 !important;
+}
+
+.styled-border-left {
+    border-left: black 2px solid !important;
+}
+
+@media only screen and (max-width: 600px) {
+    .styled-border-left {
+        border-left: none !important;
+    }
+}
+
+.styled-border-top {
+    border-top: black 2px inset !important;
+}
+
+@media only screen and (max-width: 600px) {
+    .styled-border-left {
+        border-left: none !important;
+    }
+}
+
+.footer-contact {
+    top: -70%;
+}
+
+@media only screen and (max-width:778px) {
+    .footer-contact {
+        display: none;
+    }
+}
+
+#contact input,
+textarea {
+    border-radius: 0px !important;
+    /* background-color: red; */
+}
+
+#animate {
+    animation: display 1s ease-in-out;
+}
+
+
+/* The side navigation menu */
+
+.sidenav {
+    height: 100%;
+    /* 100% Full-height */
+    width: 0;
+    /* 0 width - change this with JavaScript */
+    position: fixed;
+    /* Stay in place */
+    z-index: 20;
+    /* Stay on top */
+    top: 0;
+    /* Stay at the top */
+    left: 0;
+    background-color: #111;
+    /* Black*/
+    overflow-x: hidden;
+    /* Disable horizontal scroll */
+    padding-top: 60px;
+    /* Place content 60px from the top */
+    transition: 0.5s;
+    /* 0.5 second transition effect to slide in the sidenav */
+}
+
+
+/* The navigation menu links */
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    left: 25px;
+    text-decoration: none;
+    font-size: 12px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+
+/* When you mouse over the navigation links, change their color */
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+
+/* Position and style the close button (top right corner) */
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+
+#main {
+    transition: margin-left .5s;
+    /* padding: 20px; */
+}
+
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+    .sidenav a {
+        font-size: 18px;
+    }
+}
+
+@keyframes dropTop {
+    0% {
+        opacity: 0;
+        transform: translateY(-25px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes dropBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes display {
+    0% {
+        opacity: 0;
+        transform: scale(.2, 1);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1, 1);
+    }
+}
