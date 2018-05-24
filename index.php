@@ -1,6 +1,8 @@
 <?php
     include 'JhhamesPhp/sessions.php';
     include 'JhhamesPhp/database.php';
+    $connect = connect_db();
+
 
 ?>
 <!DOCTYPE html>
@@ -84,8 +86,7 @@
                                 </button>
                                 </p>
 
-
-                            </span>
+                           </span>
                                
                         </div>
                     </div>
@@ -119,7 +120,14 @@
             <div class="row">
                 <h2 class="comic">About SpaceClub</h2>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus deleniti velit possimus quod eaque esse totam, 
-                    neque consectetur impedit nisi temporibus quasi ullam iusto nostrum nihil error excepturi corporis eligendi ab vero id. Ex necessitatibus alias quisquam, ab deserunt vitae quam debitis aut, corrupti nesciunt impedit obcaecati doloremque laboriosam eius atque cum, aliquid quidem eum dolor minus. Debitis, dolore velit.</p>
+                    neque consectetur impedit nisi temporibus quasi ullam iusto nostrum nihil error excepturi corporis eligendi a
+                    b vero id. Ex necessitatibus alias quisquam, ab deserunt vitae quam debitis aut, corrupti nesciunt impedit obcae
+                    cati doloremque laboriosam eius atque cum, aliquid quidem eum dolor minus. Debitis, dolore velit.</p>
+                    <p> <!-- Button to Open the Modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                            Click to join
+                        </button>
+                    </p>
             </div>
         </div>
     </section>
@@ -130,31 +138,10 @@
                 <h2 class="comic">Contact Us</h2>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
                 Suscipit magnam iste quis officia unde nemo voluptatibus numquam ducimus tenetur earum!</p>
-                    <p> <!-- Button to Open the Modal -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                            Click to join
-                        </button>
-                    </p>
+
             </div>
         </div>
     </section>
-
-    <!-- <section>   
-        <div class="container border py-3 mb-4"> 
-            <div class="row">   
-                <center class="col-md-12">
-                    <h3>   <span class=" border rounded border-info text-info px-2 m-y-2"> Question 1</span>  Do you think Favour should just die?   </h3> 
-                    <hr>
-                    
-                        <button class="btn mx-1 my-1 btn-info col-sm-5"> Yeah Cos Favour is a donkey </button>
-                        <button class="btn mx-1 my-1 btn-info col-sm-5"> Yeah favour wouldn't even buy me noodles </button>
-                        <button class="btn mx-1 my-1 btn-info col-sm-5"> Definitely! One less donkey in the universe </button>
-                        <button class="btn mx-1 my-1 btn-info col-sm-5"> Thanos should decide </button>
-                </center>
-            </div>
-
-        </div>
-    </section> -->
 
 <!-- The Modal -->
 <div class="modal fade" id="myModal">
@@ -181,8 +168,8 @@
             </div>
 
             <div class="form-group">
-                <label for="email"> <b>Email Address</b> </label>
-                <input type="text" id="email" class="form-control">
+                <label for="departmrnt"> <b>Department </b> </label>
+                <input type="text" id="departmrnt" class="form-control">
             </div>
             
             <div class="form-group">
