@@ -1,7 +1,29 @@
 <?php
-include '../JhhamesPhp/sessions.php';
-include '../JhhamesPhp/database.php';
-$connect = connect_db();
+    include '../JhhamesPhp/sessions.php';
+    include '../JhhamesPhp/database.php';
+    $connect = connect_db();
+    
+    if(!isset($_SESSION['exco-login'])):
+            $_SESSION['errorMessage'] = "Login actions needed to access page";
+            redirect_to('login.php');
+            die();
+    else:
+            $id = $_SESSION['exco-login-id'];
+            $sql = "SELECT * FROM `excos` where id = '$id' ";
+            $exco_details = fetch_custom($connect, $sql);
+        if (mysqli_num_rows($exco_details) > 0) :
+            while ($row = mysqli_fetch_array($exco_details)) :
+                $excoFname = $row['firstname'];
+                $excoLname = $row['lastname'];
+                $excoEmail = $row['email'];
+                $excoPhone = $row['phone'];
+                $excoOffice = $row['office'];
+                $excoDepartment = $row['department'];
+                $excoMatricNumber = $row['matric_no'];
+            endwhile;
+        endif;
+    endif;
+
 
 
 ?>
@@ -24,10 +46,10 @@ $connect = connect_db();
     <nav class="bg-light small">
         <div class="container">
             <div class="dropdown " >
-                <span class="dropdown-toggle fa fa-user-circle" data-toggle="dropdown"> User</span>
+                <span class="dropdown-toggle fa fa-user-circle" data-toggle="dropdown"> <?= $excoFname." ".$excoLname  ?></span>
                 <div class="dropdown-menu" style="z-index:9999">
-                    <a href="" class="dropdown-item"> <span class="fa fa-pencil"></span> Details </a>
-                    <a href="" class="dropdown-item"> <span class="fa fa-user-times"></span> Logout </a>
+                    <a href="" class="dropdown-item" data-toggle="modal"> <span class="fa fa-pencil"></span> Details </a>
+                    <a href="../JhhamesPhp/excologout.php" class="dropdown-item"> <span class="fa fa-sign-out"></span> Logout </a>
                 </div>
 
             </div>
@@ -48,7 +70,7 @@ $connect = connect_db();
                         <a href="" class="nav-link active text-capitalize">Members</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link text-capitalize text-light">Aspirants</a>
+                        <a href="aspirants.php" class="nav-link text-capitalize text-light">Aspirants</a>
                     </li>
                     </li>
                     <li class="nav-item">
@@ -83,7 +105,7 @@ $connect = connect_db();
                             <td>Falola James</td>
                             <td> CSC/2015/051 </td>
                             <td>08165906890</td>
-                            <td> <button class="btn btn-secondary">View</button> </td>
+                            <td> <button data-toggle="modal" data-target="mem<?=$row['id']?>" class="btn btn-secondary">View</button> </td>
                         </tr>
                         
                     
@@ -97,8 +119,8 @@ $connect = connect_db();
     <section>
         <div class="container">
             <div class="row">
-             <button class="btn btn-lg btn-info px-3 mb-4 mx-2 fixed-bottom rounded-circle"
-                style="transform:scale(1.2,1.3); left: 80vw; box-shadow:0px 3px 10px #666"
+             <button class="btn btn-lg btn-info px-3 mb-4 mx-1 fixed-bottom rounded-circle"
+                style="transform:scale(1.1,1.3); left: 80vw; box-shadow:0px 3px 10px #666"
                 data-toggle="modal"
                 data-target="#addNew" >
                 <span class="fa fa-user-plus"></span>
@@ -107,7 +129,10 @@ $connect = connect_db();
         </div>
     </section>
    
-    <div class="modal fade" id="addNew">
+
+
+<section class="modals">
+<div class="modal fade" id="addNew">
   <div class="modal-dialog">
     <div class="modal-content">
 
@@ -159,7 +184,7 @@ $connect = connect_db();
     </div>
   </div>
 </div>
-
+</section>
     <script src="../js/jquery.min.js"></script>
     <script src="../js/popper.min.js"></script>
     <script src="../slick/slick.js"></script>
