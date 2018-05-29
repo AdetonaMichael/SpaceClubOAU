@@ -4,10 +4,22 @@
 
     $connect = connect_db();
     include '../JhhamesPhp/excologinaction.php';
+    include '../JhhamesPhp/addMember.php';
     include '../JhhamesPhp/addAspirant.php';
 
-    $aspirants = aspirantList();
+    if(isset($_POST['aspirant']) && !isset($_POST['name'])):
+        $deleteAspirant = deleteAspirant();
 
+        if($deleteAspirant):
+            $_SESSION['successMessage'] = "Aspirant Deleted";
+        else:
+            $_SESSION['errorMessage'] = "Something went wrong, try again";
+        endif;
+    endif;    
+    $aspirants = aspirantList();
+    $aspirantModals = aspirantList();
+
+    
 
 ?>
 <!DOCTYPE html>
@@ -106,7 +118,10 @@
                             <td> <?= $row['name'] ?></td>
                             <td> <?= $row['department'] ?> </td>
                             <td> <?= $row['phone'] ?> </td>
-                            <td> <button data-toggle="modal" data-target="#modal1" class="btn btn-secondary"> <span class="fa fa-pencil"></span> </button> </td>
+                            <td>
+                                <button data-toggle="modal" data-target="#mod<?= $row['id']  ?>" class="btn btn-secondary">
+                                <span class="fa fa-pencil"></span> </button>
+                            </td>
                         </tr>
                         <?php
                                 endwhile;
@@ -176,9 +191,11 @@
             </div>
         </div>
 
-
-
-        <div class="modal fade" id="modal1">
+<?php
+                if(isset($aspirantModals) && mysqli_num_rows($aspirantModals)>0):
+                    while($row =  mysqli_fetch_array($aspirantModals)):
+?>
+        <div class="modal fade" id="mod<?= $row['id'] ?>">
             <div class="modal-dialog">
                 <div class="modal-content">
 
@@ -190,23 +207,42 @@
 
                 <!-- Modal body -->
                 <div class="modal-body">
-                    <form action="#" method="POST" class="bg-light p-4 ">
-                        <div class="form-group">
-                            <label for="name"><b> Name</b> </label>
-                            <input type="text" id="name" name="name" class="form-control">
-                        </div>
+                    
+                <form action="#" method="POST" class="bg-light p-4 ">
+                    <div class="form-group">
+                        <label for="name"><b> Name</b> </label>
+                        <input type="text" id="name" value="<?= $row['name'] ?>" name="name" class="form-control">
+                    </div>
 
-                        <div class="form-group">
-                            <label for="department"> <b>Department </b> </label>
-                            <input type="text" id="department" name="department" class="form-control">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="number"> <b>Phone Number </b></label>
-                            <input type="text" id="number"name="number" class="form-control">
-                        </div>
-                        <button class="btn btn-outline-primary" type="submit" name="submit">Add Member</button>
-                    </form>    
+                    <div class="form-group">
+                        <label for="department"> <b>Department </b> </label>
+                        <input type="text" id="department" value="<?= $row['department'] ?>" name="department" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email"> <b>Email </b> </label>
+                        <input type="email" id="email" placeholder="Enter Email address" name="email" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="matric"> <b>Matric number </b> </label>
+                        <input type="text" id="matric" placeholder="Enter Matric Number" name="matric" class="form-control">
+                    </div>
+                    
+                    <input type="hidden" value="<?= $row['id']?>" name="aspirant">
+
+                    <div class="form-group">
+                        <label for="number"> <b>Phone Number </b></label>
+                        <input type="text" id="number" value="<?= $row['phone'] ?>" name="phone" class="form-control">
+                    </div>
+                    <button class="btn btn-outline-primary" type="submit" name="addMember">Register </button>
+
+
+                </form> 
+
+                <form action="#" method="POST">       
+                    <button name="aspirant" value="<?=$row['id'] ?>" class="btn btn-danger btn-block"><span class="fa fa-trash"></span></button>
+                </form>
                 </div>
 
                 <!-- Modal footer -->
@@ -217,6 +253,14 @@
                 </div>
             </div>
         </div>
+
+<?php
+                    endwhile;
+                endif;
+
+?>
+
+
     </section>
     <script src="../js/jquery.min.js"></script>
     <script src="../js/popper.min.js"></script>

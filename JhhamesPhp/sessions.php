@@ -11,7 +11,7 @@
 	{
 		if(isset($_SESSION['errorMessage'])){
 			$output = "<div class=\"alert alert-danger alert-dismissible fade w-100 show m-0\" >";
-			$output .= "<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>";
+			$output .= "<a href=\"#\" class=\"close p-0 px-2\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>";
 			$output .= htmlentities($_SESSION['errorMessage']);
 			$output .= "</div>";
 			$_SESSION['errorMessage'] = NULL;
@@ -24,7 +24,7 @@
 	{
 		if(isset($_SESSION['successMessage'])){
 			$output = "<div class=\"alert alert-success alert-dismissible w-100 fade show m-0\" >";
-			$output .= "<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>";
+			$output .= "<a href=\"#\" class=\"close p-0 px-2\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>";
 			$output .= htmlentities($_SESSION['successMessage']);
 			$output .= "</div>";
 			$_SESSION['successMessage'] = NULL;

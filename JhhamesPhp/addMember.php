@@ -1,4 +1,21 @@
 <?php
+        function deleteAspirant(){
+            $connect = connect_db();
+
+            if (isset($_POST['aspirant'])) :
+                $aspirantId = post('aspirant');
+                $sql = "DELETE FROM `aspiring` where id = '$aspirantId' ";
+                $delete = fetch_custom($connect, $sql);
+
+                return $delete;
+            else:
+                return null;
+            endif;
+
+            
+
+        }
+
         if(isset($_POST['addMember'])):
             $name = post('name');
             $department = post('department');
@@ -19,19 +36,23 @@
                 'time' => $time
             );
 
+
                 $insert = insert($array , $connect , 'member');
+                deleteAspirant();
 
                 if($insert):
                     $_SESSION['successMessage'] = '1 new member added';
                 else:
                     $_SESSION['errorMessage'] = 'error adding member, please try again';
                 endif;
+
+               
         else:
 
         endif;
 
-        function membersList()
-        {
+        
+        function membersList(){
             $connect = connect_db();
             $sql = "SELECT * from `member` ORDER BY id DESC";
             $members = fetch_custom($connect, $sql);

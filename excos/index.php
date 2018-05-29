@@ -123,7 +123,7 @@
     </section>
 
     <section>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
              <button class="btn btn-lg btn-info px-3 mb-4 mx-1 fixed-bottom rounded-circle"
                 style="transform:scale(1.1,1.3); left: 80vw; box-shadow:0px 3px 10px #666"
