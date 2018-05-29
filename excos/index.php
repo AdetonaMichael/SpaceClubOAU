@@ -7,7 +7,7 @@
     include '../JhhamesPhp/addMember.php';
 
     $members = membersList();
-
+    $memberModals = membersList(); 
 
 
 
@@ -92,7 +92,7 @@
                     <thead class="thead-dark bg-dark text-white text-capitalize">
                         <tr>
                             <th>Name</th>
-                            <th>Matric Number</th>
+                            <th>Matric No</th>
                             <th>Phone </th>
                             <th>More </th>
                         </tr>
@@ -106,7 +106,9 @@
                             <td> <?= $row['name'] ?></td>
                             <td> <?= $row['reg_number'] ?> </td>
                             <td> <?= $row['phone'] ?> </td>
-                            <td> <button data-toggle="modal" data-target="#mem<?=$row['id'] ?>" class="btn btn-secondary"> view </button> </td>
+                            <td> <button data-toggle="modal" data-target="#mem<?=$row['id'] ?>" class="btn btn-secondary">
+                            <span class="fa fa-ellipsis-h"></span>
+                            </button> </td>
                         </tr>
                         <?php
                         endwhile;
@@ -139,57 +141,144 @@
 
 <section class="modals">
     <div class="modal fade" id="addNew">
-    <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
-        <!-- Modal Header -->
-        <div class="modal-header">
-            <h4 class="modal-title"> Add New </h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title"> Add New </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+            
+                <form action="#" method="POST" class="bg-light p-4 ">
+                    <div class="form-group">
+                        <label for="name"><b> Name</b> </label>
+                        <input type="text" id="name" name="name" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="department"> <b>Department </b> </label>
+                        <input type="text" id="department" name="department" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email"> <b>Email </b> </label>
+                        <input type="email" id="email" name="email" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="matric"> <b>Matric number </b> </label>
+                        <input type="text" id="matric" name="matric" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="number"> <b>Phone Number </b></label>
+                        <input type="text" id="number" name="phone" class="form-control">
+                    </div>
+                    <button class="btn btn-outline-primary" type="submit" name="addMember">Add </button>
+
+
+                </form>    
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+            </div>
         </div>
+    </div>
 
-        <!-- Modal body -->
-        <div class="modal-body">
-        
-            <form action="#" method="POST" class="bg-light p-4 ">
-                <div class="form-group">
-                    <label for="name"><b> Name</b> </label>
-                    <input type="text" id="name" name="name" class="form-control">
+<?php 
+            if(isset($memberModals) && mysqli_num_rows($memberModals)> 0):
+                while($row = mysqli_fetch_array($memberModals)):
+?>
+    <div class="modal fade" id="mem<?= $row['id'] ?>">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">  </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+               
+                <div class="container bg-dark text-white">
+                    <div class="row pt-4 pb-3 text-center">
+                        <div class="col-md-2 text-center pt-md-3">
+                            <span style="transform:scale(4,4);"  class="fa text-white align-middle text-center fa-user-circle-o ">
+                            </span>
+                        </div>
+                        <div class="col-md-9 text-center h1 pt-sm-2">
+                            <?= $row['name'] ?>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="department"> <b>Department </b> </label>
-                    <input type="text" id="department" name="department" class="form-control">
-                </div>
+                <table class="table">
+                    <thead>
 
-                <div class="form-group">
-                    <label for="email"> <b>Email </b> </label>
-                    <input type="email" id="email" name="email" class="form-control">
-                </div>
+                    </thead>
 
-                <div class="form-group">
-                    <label for="matric"> <b>Matric number </b> </label>
-                    <input type="text" id="matric" name="matric" class="form-control">
-                </div>
+                    <tbody class="bg-light">
+                        <tr>
+                            <td class="w-25 font-weight-bold">Matric Number</td>
+                            <td><?= $row['reg_number'] ?></td>
+                        </tr>
+
+                        <tr>
+                            <td class="w-25 font-weight-bold">Department</td>
+                            <td><?= $row['department'] ?></td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="w-25 font-weight-bold">Phone </td>
+                            <td><?= $row['phone'] ?></td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="w-25 font-weight-bold">Email</td>
+                            <td><?= $row['email'] ?></td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="w-25 font-weight-bold">Joined on</td>
+                            <td><?= $row['date'] ?></td>
+                        </tr>
+                        
+                        <tr class="bg-secondary text-light">
+                            <td class="w-25 font-weight-bold">Added by</td>
+                            <td class="clearfix"><?= $row['reg_by'] ?>
+                                <span class="fa fa-clock-o float-right" > <?=$row['time'] ?> </span>
+                            </td>
+                        </tr>
+                        
+                        
+                    </tbody>
+                </table>
                 
-                <div class="form-group">
-                    <label for="number"> <b>Phone Number </b></label>
-                    <input type="text" id="number" name="phone" class="form-control">
-                </div>
-                <button class="btn btn-outline-primary" type="submit" name="addMember">Add </button>
+            </div>
 
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
 
-            </form>    
-        </div>
-
-        <!-- Modal footer -->
-        <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
-
+            </div>
         </div>
     </div>
-    </div>
+ <?php   
+                endwhile;
+            endif;
+
+?>
 </section>
     <script src="../js/jquery.min.js"></script>
     <script src="../js/popper.min.js"></script>
