@@ -6,6 +6,8 @@
     include '../JhhamesPhp/excologinaction.php';
     include '../JhhamesPhp/addMember.php';
 
+    $members = membersList();
+
 
 
 
@@ -28,9 +30,10 @@
 <body> 
     <nav class="bg-light small">
         <div class="container">
-            <div class="dropdown " >
-                <span class="dropdown-toggle fa fa-user-circle" data-toggle="dropdown"> <?= $_SESSION['excoDetails']['fname']." ".$_SESSION['excoDetails']['lname']  ?></span>
-                <div class="dropdown-menu" style="z-index:9999">
+            <div class="dropdown">
+                <a class="dropdown-toggle fa fa-user-circle text-dark" href="" style="text-decoration:none" data-toggle="dropdown">
+                    <?= $_SESSION['excoDetails']['fname'] . " " . $_SESSION['excoDetails']['lname'] ?>
+                </a>                <div class="dropdown-menu" style="z-index:9999">
                     <a href="" class="dropdown-item" data-toggle="modal"> <span class="fa fa-pencil"></span> Details </a>
                     <a href="../JhhamesPhp/excologout.php" class="dropdown-item"> <span class="fa fa-sign-out"></span> Logout </a>
                 </div>
@@ -95,13 +98,22 @@
                         </tr>
                     </thead>
                     <tbody id="myTable">
+                        <?php
+                        if (isset($members) && mysqli_num_rows($members) > 0) :
+                            while ($row = mysqli_fetch_array($members)) :
+                        ?>
                         <tr>
-                            <td>Falola James</td>
-                            <td> CSC/2015/051 </td>
-                            <td>08165906890</td>
-                            <td> <button data-toggle="modal" data-target="mem<?=$row['id']?>" class="btn btn-secondary">View</button> </td>
+                            <td> <?= $row['name'] ?></td>
+                            <td> <?= $row['reg_number'] ?> </td>
+                            <td> <?= $row['phone'] ?> </td>
+                            <td> <button data-toggle="modal" data-target="#mem<?=$row['id'] ?>" class="btn btn-secondary"> view </button> </td>
                         </tr>
-                        
+                        <?php
+                        endwhile;
+                        else :
+                            echo "<th colspan='4'> No members yet </th> ";
+                        endif;
+                        ?>
                     
                     </tbody>
                     </table>

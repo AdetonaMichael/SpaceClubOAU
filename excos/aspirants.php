@@ -6,8 +6,7 @@
     include '../JhhamesPhp/excologinaction.php';
     include '../JhhamesPhp/addAspirant.php';
 
-    $sql = "SELECT * FROM `aspiring` ORDER BY id DESC";
-    $aspirants = fetch_custom($connect, $sql);
+    $aspirants = aspirantList();
 
 
 ?>
@@ -30,7 +29,9 @@
     <nav class="bg-light small">
         <div class="container">
             <div class="dropdown " >
-                <span class="dropdown-toggle fa fa-user-circle" data-toggle="dropdown"> <?= $excoFname . " " . $excoLname ?></span>
+                <a class="dropdown-toggle fa fa-user-circle text-dark" href="" style="text-decoration:none" data-toggle="dropdown">
+                    <?= $_SESSION['excoDetails']['fname']." ".$_SESSION['excoDetails']['lname']  ?>
+                </a>
                 <div class="dropdown-menu" style="z-index:9999">
                     <a href="" class="dropdown-item" data-toggle="modal"> <span class="fa fa-pencil"></span> Details </a>
                     <a href="../JhhamesPhp/excologout.php" class="dropdown-item"> <span class="fa fa-sign-out"></span> Logout </a>
@@ -40,6 +41,7 @@
             </div>
         </div>
     </nav>
+
     <nav class="navbar navbar-expand-sm sticky-top bg-dark text-light">
         <div class="container">
             <div class="navbar-brand mr-auto">
@@ -66,12 +68,12 @@
         </div>
 
     </nav>
-    <section>
-        <div class="container">
-            <div class="row">
-                <?php 
-                        echo success();
-                        echo error();
+     <section id="error">
+        <div class="container-fluid">
+            <div class="row text-center">
+                <?php
+                echo error();
+                echo success();
                 ?>
             </div>
         </div>
@@ -161,7 +163,7 @@
                             <label for="number"> <b>Phone Number </b></label>
                             <input type="text" id="number"name="number" class="form-control">
                         </div>
-                        <button class="btn btn-outline-primary" type="submit" name="submit">Submit</button>
+                        <button class="btn btn-outline-primary" type="submit" name="addAspirant">Submit</button>
                     </form>    
                 </div>
 
