@@ -29,7 +29,7 @@
     <section class="p-2">
         <div class="container">
             <div class="row">
-                <div class="col-md-4 mx-auto bg-white pb-3 m-5 rounded" id="login-box" style="box-shadow: 0px 2px 19px #777">
+                <div class="col-md-4 mx-auto bg-white pb-3 pt-2 m-5 rounded" id="login-box" style="box-shadow: 0px 2px 19px #777">
                 <div class="row m-0">
                     <?php
                         echo success();

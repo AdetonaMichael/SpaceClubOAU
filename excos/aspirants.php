@@ -3,27 +3,7 @@
     include '../JhhamesPhp/database.php';
 
     $connect = connect_db();
-    if (!isset($_SESSION['exco-login'])) :
-            $_SESSION['errorMessage'] = "Login actions needed to access page";
-            redirect_to('login.php');
-            die();
-    else :
-            $id = $_SESSION['exco-login-id'];
-            $sql = "SELECT * FROM `excos` where id = '$id' ";
-            $exco_details = fetch_custom($connect, $sql);
-        if(mysqli_num_rows($exco_details) > 0) :
-            while ($row = mysqli_fetch_array($exco_details)) :
-                $excoFname = $row['firstname'];
-                $excoLname = $row['lastname'];
-                $excoEmail = $row['email'];
-                $excoPhone = $row['phone'];
-                $excoOffice = $row['office'];
-                $excoDepartment = $row['department'];
-                $excoMatricNumber = $row['matric_no'];
-            endwhile;
-        endif;
-    endif;
-
+    include '../JhhamesPhp/excologinaction.php';
     include '../JhhamesPhp/addAspirant.php';
 
     $sql = "SELECT * FROM `aspiring` ORDER BY id DESC";

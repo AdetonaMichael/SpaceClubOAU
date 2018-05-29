@@ -1,6 +1,6 @@
 <?php
 
-    if(isset($_POST['submit']))
+    if(isset($_POST['addAsporant']))
     {
         $name = post('name');
         $department = post('department');

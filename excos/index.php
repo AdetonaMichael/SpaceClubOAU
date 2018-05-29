@@ -3,26 +3,9 @@
     include '../JhhamesPhp/database.php';
     $connect = connect_db();
     
-    if(!isset($_SESSION['exco-login'])):
-            $_SESSION['errorMessage'] = "Login actions needed to access page";
-            redirect_to('login.php');
-            die();
-    else:
-            $id = $_SESSION['exco-login-id'];
-            $sql = "SELECT * FROM `excos` where id = '$id' ";
-            $exco_details = fetch_custom($connect, $sql);
-        if (mysqli_num_rows($exco_details) > 0) :
-            while ($row = mysqli_fetch_array($exco_details)) :
-                $excoFname = $row['firstname'];
-                $excoLname = $row['lastname'];
-                $excoEmail = $row['email'];
-                $excoPhone = $row['phone'];
-                $excoOffice = $row['office'];
-                $excoDepartment = $row['department'];
-                $excoMatricNumber = $row['matric_no'];
-            endwhile;
-        endif;
-    endif;
+    include '../JhhamesPhp/excologinaction.php';
+    include '../JhhamesPhp/addMember.php';
+
 
 
 
@@ -46,7 +29,7 @@
     <nav class="bg-light small">
         <div class="container">
             <div class="dropdown " >
-                <span class="dropdown-toggle fa fa-user-circle" data-toggle="dropdown"> <?= $excoFname." ".$excoLname  ?></span>
+                <span class="dropdown-toggle fa fa-user-circle" data-toggle="dropdown"> <?= $_SESSION['excoDetails']['fname']." ".$_SESSION['excoDetails']['lname']  ?></span>
                 <div class="dropdown-menu" style="z-index:9999">
                     <a href="" class="dropdown-item" data-toggle="modal"> <span class="fa fa-pencil"></span> Details </a>
                     <a href="../JhhamesPhp/excologout.php" class="dropdown-item"> <span class="fa fa-sign-out"></span> Logout </a>
@@ -81,6 +64,17 @@
         </div>
 
     </nav>
+    <section id="error">
+        <div class="container-fluid">
+            <div class="row text-center">
+                <?php
+                    echo error();
+                    echo success();
+                ?>
+            </div>
+        </div>
+    </section>
+
 
     <section class="mt-2">
         <div class="container">
@@ -132,58 +126,58 @@
 
 
 <section class="modals">
-<div class="modal fade" id="addNew">
-  <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal fade" id="addNew">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title"> Add New </h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
+        <!-- Modal Header -->
+        <div class="modal-header">
+            <h4 class="modal-title"> Add New </h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
 
-      <!-- Modal body -->
-      <div class="modal-body">
-      
-        <form action="#" class="bg-light p-4 ">
-            <div class="form-group">
-                <label for="name"><b> Name</b> </label>
-                <input type="text" id="name" class="form-control">
-            </div>
+        <!-- Modal body -->
+        <div class="modal-body">
+        
+            <form action="#" method="POST" class="bg-light p-4 ">
+                <div class="form-group">
+                    <label for="name"><b> Name</b> </label>
+                    <input type="text" id="name" name="name" class="form-control">
+                </div>
 
-            <div class="form-group">
-                <label for="department"> <b>Department </b> </label>
-                <input type="text" id="department" class="form-control">
-            </div>
+                <div class="form-group">
+                    <label for="department"> <b>Department </b> </label>
+                    <input type="text" id="department" name="department" class="form-control">
+                </div>
 
-            <div class="form-group">
-                <label for="email"> <b>Email </b> </label>
-                <input type="email" id="email" class="form-control">
-            </div>
+                <div class="form-group">
+                    <label for="email"> <b>Email </b> </label>
+                    <input type="email" id="email" name="email" class="form-control">
+                </div>
 
-            <div class="form-group">
-                <label for="matric"> <b>Matric number </b> </label>
-                <input type="text" id="matric" class="form-control">
-            </div>
-            
-            <div class="form-group">
-                <label for="number"> <b>Phone Number </b></label>
-                <input type="text" id="number" class="form-control">
-            </div>
-            <button class="btn btn-outline-primary" type="submit" name="submit">Submit</button>
+                <div class="form-group">
+                    <label for="matric"> <b>Matric number </b> </label>
+                    <input type="text" id="matric" name="matric" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label for="number"> <b>Phone Number </b></label>
+                    <input type="text" id="number" name="phone" class="form-control">
+                </div>
+                <button class="btn btn-outline-primary" type="submit" name="addMember">Add </button>
 
 
-        </form>    
-      </div>
+            </form>    
+        </div>
 
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
 
+        </div>
     </div>
-  </div>
-</div>
+    </div>
 </section>
     <script src="../js/jquery.min.js"></script>
     <script src="../js/popper.min.js"></script>
