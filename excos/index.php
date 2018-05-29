@@ -212,11 +212,11 @@
                
                 <div class="container bg-dark text-white">
                     <div class="row pt-4 pb-3 text-center">
-                        <div class="col-md-2 text-center pt-md-3">
+                        <div class="col-md-2 pb-2 text-center pt-md-3">
                             <span style="transform:scale(4,4);"  class="fa text-white align-middle text-center fa-user-circle-o ">
                             </span>
                         </div>
-                        <div class="col-md-9 text-center h1 pt-sm-2">
+                        <div class="col-md-9 text-center h1">
                             <?= $row['name'] ?>
                         </div>
                     </div>
@@ -230,7 +230,7 @@
                     <tbody class="bg-light">
                         <tr>
                             <td class="w-25 font-weight-bold">Matric Number</td>
-                            <td><?= $row['reg_number'] ?></td>
+                            <td><?=strtoupper($row['reg_number']) ?></td>
                         </tr>
 
                         <tr>

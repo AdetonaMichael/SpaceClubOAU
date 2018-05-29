@@ -15,7 +15,7 @@
             
 
         }
-
+        date_default_timezone_set('Africa/Lagos');
         if(isset($_POST['addMember'])):
             $name = post('name');
             $department = post('department');
