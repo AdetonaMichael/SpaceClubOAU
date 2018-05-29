@@ -1,6 +1,6 @@
 <?php
 
-    if(isset($_POST['addAsporant']))
+    if(isset($_POST['addAspirant']))
     {
         $name = post('name');
         $department = post('department');
@@ -20,6 +20,14 @@
         else:
             $_SESSION['errorMessage'] = "Some Error Occured, try again";
         endif;
+    }
+
+    function aspirantList(){
+        $connect = connect_db();
+        $sql = "SELECT * FROM `aspiring` ORDER BY id DESC";
+        $aspirants = fetch_custom($connect, $sql);
+        
+        return $aspirants;
     }
 
 

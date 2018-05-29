@@ -27,11 +27,12 @@
                     $_SESSION['errorMessage'] = 'error adding member, please try again';
                 endif;
         else:
-            $_SESSION['errorMessage'] = 'Add Members';
+
         endif;
 
         function membersList()
         {
+            $connect = connect_db();
             $sql = "SELECT * from `member` ORDER BY id DESC";
             $members = fetch_custom($connect, $sql);
 
