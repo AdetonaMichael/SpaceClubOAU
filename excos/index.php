@@ -9,6 +9,7 @@
     $members = membersList();
     $memberModals = membersList(); 
 
+    
 
 
 ?>
@@ -101,8 +102,13 @@
                         <?php
                         if (isset($members) && mysqli_num_rows($members) > 0) :
                             while ($row = mysqli_fetch_array($members)) :
+                                    if(check_exist($connect, 'matric_no', $row['reg_number'], 'excos')):
+                                        $classBold = 'font-weight-bold';
+                                    else:
+                                        $classBold = '';
+                                    endif;
                         ?>
-                        <tr>
+                        <tr class='<?= $classBold?>'>
                             <td> <?= $row['name'] ?></td>
                             <td> <?= $row['reg_number'] ?> </td>
                             <td> <?= $row['phone'] ?> </td>
@@ -111,7 +117,7 @@
                             </button> </td>
                         </tr>
                         <?php
-                        endwhile;
+                            endwhile;
                         else :
                             echo "<th colspan='4'> No members yet </th> ";
                         endif;
