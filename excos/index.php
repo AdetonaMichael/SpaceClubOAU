@@ -60,7 +60,7 @@
                     </li>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link text-capitalize text-light">Excos</a>
+                        <a href="excos.php" class="nav-link text-capitalize text-light">Excos</a>
                     </li>
                 </ul>
             </div>

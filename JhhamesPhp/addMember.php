@@ -23,7 +23,7 @@
             $email = post('email');
             $phone = post('phone');
             $reg_by = $_SESSION['excoDetails']['lname']." ".$_SESSION['excoDetails']['fname'];
-            $date = date("d|m|Y");
+            $date = date("d | m | Y");
             $time = date('g:i A');
             $array = array(
                 'name' => $name,

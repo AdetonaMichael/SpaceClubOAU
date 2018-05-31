@@ -32,7 +32,30 @@ function fetch_custom($connect, $sql)
 	return $query;
 }
 
+function check_exist($connect, $row, $value, $tablename)
+{
+	$sql = "SELECT * FROM $tablename where $row = '$value'";
+	$fetch = fetch_custom($connect, $sql);
 
+	if ($fetch && mysqli_num_rows($fetch)>0) :
+		return true;
+	else :
+		return false;
+	endif;
+}
+
+function full_details($connect, $id, $tablename)
+{
+	$sql = "SELECT * FROM $tablename where id = '$id'";
+	$fetch = fetch_custom($connect, $sql);
+
+	if ($fetch) :
+		return mysqli_fetch_array($fetch);
+	else :
+		$_SESSION['errorMessage'] = 'Something went wrong fetching from database, try again';
+		die();
+	endif;
+}
 
 // <a href="javascript: history.go(-1)">Go Back</a>
 

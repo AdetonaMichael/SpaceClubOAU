@@ -192,7 +192,7 @@
                 <label for="number"> <b>Phone Number </b></label>
                 <input type="text" id="number"name="number" class="form-control">
             </div>
-            <button class="btn btn-outline-primary" type="submit" name="submit">Submit</button>
+            <button class="btn btn-outline-primary" type="submit" name="addAspirant">Submit</button>
 
 
         </form>    
