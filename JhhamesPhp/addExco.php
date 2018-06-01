@@ -31,6 +31,19 @@
     else:
     endif;
 
+    if(isset($_POST['addOffice'])):
+        $office = post('office');
+        $array = array(
+            'office' => $office
+        );
+
+        if(insert($array, $connect,'office')):
+            $_SESSION['successMessage'] = 'Office added';
+        else:
+            $_SESSION['errorMessage'] = 'Error adding office try again';
+        endif;
+
+    endif;
 function excosList()
 {
     $connect = connect_db();
@@ -40,7 +53,13 @@ function excosList()
     return $excos;
 }
 
+function officeList(){
+    $connect = connect_db();
+    $sql = "SELECT * FROM `office`";
+    $office = fetch_custom($connect, $sql);
 
+    return $office;
+}
 //new excos reveal //talk about making the group live
 //why the fuck are you here and what do you want to get out of the club
 //michael presents his rules

@@ -7,12 +7,13 @@ include '../JhhamesPhp/excologinaction.php';
 include '../JhhamesPhp/addMember.php';
 
 $memberList = membersList();
-$permission = array('president', 'P.R.O');
+$permission = array('President', 'P.R.O', 'Vice President 1','Vice President 2');
 
 include '../JhhamesPhp/addExco.php';
 $excos = excosList();
-
-
+$offices = officeList();
+$officeOption = officeList();
+$excosModal = excosList();
 ?>
 <!DOCTYPE html>
 <html>
@@ -84,7 +85,7 @@ $excos = excosList();
     </section>
     <section class="mt-2">
         <div class="container">
-            <div class="row">    
+            <div class="row p-1">    
                 <div class="clearfix border p-2 border-dark w-100">
                     <span class="float-left"> <h4 class="float-left"> <span class="fa fa-users"></span> Excos  </h4></span>
                     <span class="float-right"><input type="text" id="myInput" placeholder="search..." class="float-right form-control"></span>
@@ -112,11 +113,11 @@ $excos = excosList();
                             <td> <?= $row['phone'] ?> </td>
                             <td>
                                 <button data-toggle="modal" data-target="#mod<?= $row['id'] ?>" class="btn btn-secondary">
-                                <span class="fa fa-pencil"></span> </button>
+                                <span class="fa fa-ellipsis-h"></span> </button>
                             </td>
                         </tr>
                         <?php
-                        endwhile;
+                            endwhile;
                         else :
                             echo "<th colspan='4' class='text-center'> No Excos yet </th> ";
                         endif;
@@ -126,6 +127,41 @@ $excos = excosList();
                     </tbody>
                     </table>
                 </div>
+                
+                <?php
+                if (in_array($_SESSION['excoDetails']['office'], $permission)) : ?>
+                <div class="col-sm-12 w-100">
+                        <form action="#" method="POST">
+                            <div class="input-group">
+                                <button class="btn bg-white input-group-addon fa fa-caret-down" id="office-add" ></button>
+                                <input type="text" name="office" class="w-100 form-control" placeholder="Add Office">
+                                <button type="submit" name="addOffice" class="btn bg-secondary fa fa-plus input-group-addon"></button>
+                            </div>
+                        </form>
+                        <div class="col-sm-12 bg-light p-2 rounded-bottom" style="display:none" id="office-list">
+                            <h5>Available Offices</h5>
+                            <ul class="list-group">
+                                <?php
+                                    if(isset($offices) && mysqli_num_rows($offices)>0):
+                                        while($row = mysqli_fetch_array($offices)):
+                                ?>
+                                        <li class="list-group-item"><?=$row['office'] ?></li>                                
+                                <?php
+                                        endwhile;        
+                                    else:
+                                ?>
+                                        <li class="list-group-item">No Offices </li>
+                                <?php
+                                    endif;
+                                ?>       
+                        </div>
+                </div>
+                <?php endif; ?>
+                
+                <div class="col-sm-12 w-100 p-5">
+                
+                </div>
+
             </div>
         </div>
     </section>
@@ -185,8 +221,23 @@ $excos = excosList();
                     </div>
 
                     <div class="form-group">
-                        <label for="office" class="font-weight-bold"> Office </label>
-                        <input type="text" name="office" id="office" placeholder="Enter Office for candidate" class="form-control">
+                        <label for="office" class="font-weight-bold">Select Portfolio</label>
+                        <select name="office" id="office" class="form-control">
+                            <?php
+                                if (isset($officeOption) && mysqli_num_rows($officeOption) > 0) :
+                                    while ($row = mysqli_fetch_array($officeOption)) :
+                            ?>
+                                        <option value="<?= $row['office'] ?>"> <?= $row['office'] ?> </option>
+                            <?php 
+                                    endwhile;
+                                else :
+                            ?>
+                                    <option value="" disabled>No Office selected from db</option>
+                            <?php
+                                endif;
+                
+                            ?>
+                        </select>
                     </div>
 
                     <button class="btn btn-outline-primary" name="addExco" <?=$class ?>>Add</button>
@@ -202,9 +253,92 @@ $excos = excosList();
             </div>
         </div>
 
+        <?php 
+        if (isset($excosModal) && mysqli_num_rows($excosModal) > 0) :
+            while ($row = mysqli_fetch_array($excosModal)) :
+        ?>
+    <div class="modal fade" id="mod<?= $row['id'] ?>">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">  </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+               
+                <div class="container bg-secondary text-white">
+                    <div class="row pt-4 pb-3 text-center">
+                        <div class="col-md-2 pb-2 text-center pt-md-3">
+                            <span style="transform:scale(4,4);"  class="fa text-white align-middle text-center fa-user-circle-o ">
+                            </span>
+                        </div>
+                        <div class="col-md-9 text-center h1">
+                            <?= $row['firstname']. " ". $row['lastname'] ?>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="table">
+                    <thead>
+
+                    </thead>
+
+                    <tbody class="bg-light">
+                        <tr>
+                            <td class="w-25 font-weight-bold">Matric Number</td>
+                            <td><?= strtoupper($row['matric_no']) ?></td>
+                        </tr>
+
+                        <tr>
+                            <td class="w-25 font-weight-bold">Department</td>
+                            <td><?= $row['department'] ?></td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="w-25 font-weight-bold">Phone </td>
+                            <td><?= $row['phone'] ?></td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="w-25 font-weight-bold">Email</td>
+                            <td><?= $row['email'] ?></td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="w-25 font-weight-bold">Portfolio</td>
+                            <td><?= $row['office'] ?></td>
+                        </tr>
+
+                        
+                        
+                    </tbody>
+                </table>
+                
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+            </div>
+        </div>
+    </div>
+ <?php 
+            endwhile;
+        endif;
+
+?>
+
+
 
     </section>
     <script src="../js/jquery.min.js"></script>
+    <script src="../js/main.js"></script>
     <script src="../js/popper.min.js"></script>
     <script src="../slick/slick.js"></script>
     <script src="../slick/slick.min.js"></script>
@@ -218,6 +352,16 @@ $excos = excosList();
             });
         });
         });
+
+        $(function() {
+        $('#office-add').click(function() {
+            $('#office-add').toggleClass('fa-caret-down fa-caret-up');
+            $('#office-list').slideToggle( function(){
+
+            });
+            event.preventDefault();
+        });
+    });
     </script>
 </body>
 </html>
