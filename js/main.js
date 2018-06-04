@@ -1,32 +1,32 @@
-function createHttp() {
-    var request;
-    if (window.ActiveXObject) {
-        try {
-            request = new ActiveXObject("Microsoft.XMLHTTP");
-        } catch (error) {
-            request = false;
-        }
+// function createHttp() {
+//     var request;
+//     if (window.ActiveXObject) {
+//         try {
+//             request = new ActiveXObject("Microsoft.XMLHTTP");
+//         } catch (error) {
+//             request = false;
+//         }
 
-    } else {
-        try {
-            request = new XMLHttpRequest();
-        } catch (e) {
-            request = false;
-        }
-    }
+//     } else {
+//         try {
+//             request = new XMLHttpRequest();
+//         } catch (e) {
+//             request = false;
+//         }
+//     }
 
-    if (!request) {
-        alert("Can't create http Request");
-    } else {
-        return request;
-    }
-}
+//     if (!request) {
+//         alert("Can't create http Request");
+//     } else {
+//         return request;
+//     }
+// }
 
-function $$(element) {
-    return document.getElementById(element);
-}
+// function $$(element) {
+//     return document.getElementById(element);
+// }
 
-var ajax = createHttp();
+// var ajax = createHttp();
 
 $(function() {
     //Select all links with hashes
@@ -66,3 +66,31 @@ $(function() {
         });
 
 });
+
+// $(function request() {
+//     $('#login_form').click(function(event) {
+//         if (request.readyState == 0 || request.readyState == 4) {
+//             var formdata = new FormData();
+//             request.open('POST', '../JhhamesPhp/xmlrequest.php');
+//             request.onreadystatechange = serverResponse;
+//             request.send(formdata);
+//         } else {
+//             setTimeout('request()', 1000);
+//         }
+//     });
+
+// });
+
+// function serverResponse() {
+//     if (request.readyState == 4) {
+//         if (request.status == 200) {
+//             xmlResponse = request.responseXML;
+//             XMLDocumentElement = XmlResponse.documentElement;
+//             var reply = XMLDocumentElement.firstChild.data;
+//             $$('reply').innerHTML = reply;
+//             setTimeout('request()', 1000);
+//         } else {
+//             alert('something went wrong');
+//         }
+//     }
+// }

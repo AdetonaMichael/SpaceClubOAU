@@ -35,11 +35,12 @@
                         echo success();
                         echo error();
                     ?>
+                <span id="reply" class="text-danger font-weight-bold"></span>
                 </div>
                 <p class="lead">Hi Exco! Login Below</p>
-                    <form action="#" method="POST">
+                    <form action="#" method="POST" id="login_form">
                         <div class="form-group">
-                            <label for="reg"> <strong></strong> </label> 
+                            <label for="reg"> <strong> <span class="text-center small text-danger" id="matric-reply"> </span> </strong> </label> 
                             <div class="input-group" id="mat_no">
                                 <span class=" fa fa-user-circle input-group-addon bg-white"></span>
                                 <input type="text" id="reg" name="matric" placeholder="Matric Number" class="form-control">
@@ -48,7 +49,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="password"> <strong></strong> </label> 
+                            <label for="password"> <strong> <span class="text-center small text-danger" id="pass-reply"> </span> </strong> </label> 
                             <div class="input-group" id="pword">
                                 <span class=" fa fa-key input-group-addon bg-white"></span>
                                 <input type="password" id="password" name="password" placeholder="Password" class="form-control">
@@ -56,7 +57,7 @@
                         
                         </div>
 
-                        <button class="btn btn-outline-info btn-block" name="login">Login</button>
+                        <button class="btn btn-outline-info btn-block" type="submit" name="login">Login</button>
                     </form>
                 </div>
             </div>
@@ -64,6 +65,7 @@
     </section>
 
     <script src="../js/popper.min.js"></script>
+    <script src="../js/main.js"></script>
     <script src="../slick/slick.js"></script>
     <script src="../slick/slick.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
@@ -76,6 +78,68 @@
             });
         });
         });
+
+        //validate the whole form based on the click event
+        $(document).ready(function(){
+            $('#login_form').submit(function(event){
+            var matric = $('#reg').val();
+            var password = $('#password').val();
+
+            validateMaticNo(matric, event);
+            validatePassword(password, event);
+
+            });
+            
+            
+        });
+        
+        //Valiadtion function for matric number field
+        function validateMaticNo(matric, event){
+            if(!validMatric(matric)){
+                $('#matric-reply').text('Invalid Matric Number');
+                $('#mat_no').addClass('border');
+                $('#mat_no').addClass('rounded');
+                $('#mat_no').addClass('border-danger');
+                $('#login-box').addClass('shake-table');
+
+                event.preventDefault();
+            }
+            else{
+                $('#matric-reply').text('');
+            }
+        }
+        
+        // validation for password field; must not be empty
+        function validatePassword (pass, event){
+            if(pass.trim() == ''){
+                $('#pass-reply').text('Password Empty');
+                $('#login-box').addClass('shake-table');
+                $('#pword').addClass('border');
+                $('#pword').addClass('rounded');
+                $('#pword').addClass('border-danger');
+            
+                event.preventDefault();
+                
+
+            }else{
+                $('#pass-reply').text("");
+            }
+        }
+        function validMatric(matric){
+            return matric.length == 12;
+        }
+        
+        //remove the shake class after they remove mouse from password
+        $('#password').focus(function(){
+            $('#pass-reply').text("");
+            $('#login-box').removeClass('shake-table');
+        });
+       //remove the shake class after they remove mouse from matric number
+        $('#reg').focus(function(){
+            $('#matric-reply').text("");
+            $('#login-box').removeClass('shake-table');
+        });
+
     </script>
 </body>
 </html>
