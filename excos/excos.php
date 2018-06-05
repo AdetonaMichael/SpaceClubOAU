@@ -205,6 +205,7 @@ $excosModal = excosList();
                     <div class="form-group">
                         <label for="memlist" class="font-weight-bold">Select a member</label>
                         <select name="member" id="memlist" class="form-control">
+                            <option value="" selected disabled style="display:none"> Members List </option>    
                             <?php
                                 if (isset($memberList) && mysqli_num_rows($memberList) > 0) :
                                     while ($row = mysqli_fetch_array($memberList)) :
@@ -223,6 +224,7 @@ $excosModal = excosList();
                     <div class="form-group">
                         <label for="office" class="font-weight-bold">Select Portfolio</label>
                         <select name="office" id="office" class="form-control">
+                        <option value="" selected disabled style="display:none"> Portfolios </option>    
                             <?php
                                 if (isset($officeOption) && mysqli_num_rows($officeOption) > 0) :
                                     while ($row = mysqli_fetch_array($officeOption)) :

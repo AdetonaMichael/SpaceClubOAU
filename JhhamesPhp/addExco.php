@@ -3,6 +3,10 @@
         $id = post('member');
         $office = post('office');
 
+        if(empty($id)&&empty($office)):
+            $_SESSION['errorMessage'] = 'Fields cannot be empty';
+        endif;
+        
         $candidate = full_details($connect, $id, 'member');
 
         if(check_exist($connect,'matric_no',$candidate['reg_number'],'excos')):
@@ -33,43 +37,38 @@
 
     if(isset($_POST['addOffice'])):
         $office = post('office');
-        $array = array(
-            'office' => $office
-        );
-
-        if(insert($array, $connect,'office')):
-            $_SESSION['successMessage'] = 'Office added';
+        if(empty($office)):
+            $_SESSION['errorMessage']= 'Fields cannot be empty';
         else:
-            $_SESSION['errorMessage'] = 'Error adding office try again';
+            $array = array(
+                'office' => $office
+            );
+
+            if(insert($array, $connect,'office')):
+                $_SESSION['successMessage'] = 'Office added';
+            else:
+                $_SESSION['errorMessage'] = 'Error adding office try again';
+            endif;   
         endif;
+        
 
     endif;
-function excosList()
-{
-    $connect = connect_db();
-    $sql = "SELECT * from `excos` ORDER BY id DESC";
-    $excos = fetch_custom($connect, $sql);
+    function excosList()
+    {
+        $connect = connect_db();
+        $sql = "SELECT * from `excos` ORDER BY id DESC";
+        $excos = fetch_custom($connect, $sql);
 
-    return $excos;
-}
+        return $excos;
+    }
 
-function officeList(){
-    $connect = connect_db();
-    $sql = "SELECT * FROM `office`";
-    $office = fetch_custom($connect, $sql);
+    function officeList(){
+        $connect = connect_db();
+        $sql = "SELECT * FROM `office`";
+        $office = fetch_custom($connect, $sql);
 
-    return $office;
-}
-//new excos reveal //talk about making the group live
-//why the fuck are you here and what do you want to get out of the club
-//michael presents his rules
-//club plans - 
-//call to join arms of the club
-//space law 
-//space lab 
-//editorial team, 
-//outreach
-
+        return $office;
+    }
 
 
 ?>
