@@ -20,10 +20,12 @@
                     $(function(){
                     var matric = $('#mat_no');
                     matric.addClass('border');
+                    matric.addClass('rounded');
                     matric.addClass('border-danger');
                     
                     var pass = $('#pword');
                     pass.addClass('border');
+                    pass.addClass('rounded');
                     pass.addClass('border-danger');
 
                     var loginBox = $('#login-box');

@@ -163,7 +163,7 @@
 
                 <!-- Modal body -->
                 <div class="modal-body">
-                    <form action="#" method="POST" class="bg-light p-4 ">
+                    <form action="#" method="POST" class="bg-light p-4" id="aspirant-form">
                         <div class="form-group">
                             <label for="name"><b> Name</b> </label>
                             <input type="text" id="name" name="name" class="form-control">
@@ -208,15 +208,15 @@
                 <!-- Modal body -->
                 <div class="modal-body">
                     
-                <form action="#" method="POST" class="bg-light p-4 ">
+                <form action="#" method="POST" class="bg-light p-4 " id="member-form">
                     <div class="form-group">
-                        <label for="name"><b> Name</b> </label>
-                        <input type="text" id="name" value="<?= $row['name'] ?>" name="name" class="form-control">
+                        <label for="name"><b> Name </b> </label>
+                        <input type="text" id="fname" value="<?= $row['name'] ?>" name="name" class="form-control">
                     </div>
 
                     <div class="form-group">
                         <label for="department"> <b>Department </b> </label>
-                        <input type="text" id="department" value="<?= $row['department'] ?>" name="department" class="form-control">
+                        <input type="text" id="adepartment" value="<?= $row['department'] ?>" name="department" class="form-control">
                     </div>
 
                     <div class="form-group">
@@ -233,7 +233,7 @@
 
                     <div class="form-group">
                         <label for="number"> <b>Phone Number </b></label>
-                        <input type="text" id="number" value="<?= $row['phone'] ?>" name="phone" class="form-control">
+                        <input type="text" id="anumber" value="<?= $row['phone'] ?>" name="phone" class="form-control">
                     </div>
                     <button class="btn btn-outline-primary" type="submit" name="addMember">Register </button>
 
@@ -276,6 +276,134 @@
             });
         });
         });
+
+         $(document).ready(function(){
+            $('#member-form').submit(function(event){
+
+                var name = $('#fname').val();
+                var department = $('#adepartment').val();
+                var email = $('#email').val();
+                var matric = $('#matric').val();
+                var phone = $('#anumber').val();
+
+                validateEmptyName(name, event);
+                validateEmptyDept(department, event);
+                validateEmptyEmail(email, event);
+                validateEmptyMatric(matric, event);
+                validateEmptyPhone(phone, event);
+            });
+
+                        
+            $('#aspirant-form').submit(function(event){
+                var name = $('#name').val();
+                var department = $('#department').val();
+                var number = $('#number').val();
+                
+                validateEmptyName_2(name,event);
+                validateEmptyDept_2(department,event);
+                validateEmptyPhone_2(number,event);
+            });
+        });
+    
+
+
+        rmvClass('#fname');
+        rmvClass('#name');
+        rmvClass('#number');
+        rmvClass('#department');
+        rmvClass('#adepartment');
+        rmvClass('#email');
+        rmvClass('#matric');
+        rmvClass('#anumber');
+
+    
+            function validateEmptyName(field, event){
+                if(field.trim() ==''){
+                    $('#fname').addClass('border');
+                    $('#fname').addClass('border-danger');
+                    $('#fname').addClass('shake-table');
+                    event.preventDefault();
+                }
+        
+        }
+    
+            function validateEmptyName_2(field, event){
+                if(field.trim() ==''){
+                    $('#name').addClass('border');
+                    $('#name').addClass('border-danger');
+                    $('#name').addClass('shake-table');
+                    event.preventDefault();
+                }
+        
+        }
+    
+            function validateEmptyDept(field, event){
+                if(field.trim() ==''){
+                    $('#adepartment').addClass('border');
+                    $('#adepartment').addClass('border-danger');
+                    $('#adepartment').addClass('shake-table');
+                    event.preventDefault();
+                }
+        
+        }
+
+            function validateEmptyDept_2(field, event){
+                if(field.trim() ==''){
+                    $('#department').addClass('border');
+                    $('#department').addClass('border-danger');
+                    $('#department').addClass('shake-table');
+                    event.preventDefault();
+                }
+        
+        }
+    
+            function validateEmptyMatric(field, event){
+                if(field.trim() ==''){
+                    $('#matric').addClass('border');
+                    $('#matric').addClass('border-danger');
+                    $('#matric').addClass('shake-table');
+                    event.preventDefault();
+                }
+        
+        }
+    
+            function validateEmptyPhone(field, event){
+                if(field.trim() ==''){
+                    $('#anumber').addClass('border');
+                    $('#anumber').addClass('border-danger');
+                    $('#anumber').addClass('shake-table');
+                    event.preventDefault();
+                }
+        
+        }
+    
+            function validateEmptyPhone_2(field, event){
+                if(field.trim() ==''){
+                    $('#number').addClass('border');
+                    $('#number').addClass('border-danger');
+                    $('#number').addClass('shake-table');
+                    event.preventDefault();
+                }
+        
+        }
+    
+            function validateEmptyEmail(field, event){
+                if(field.trim() ==''){
+                    $('#email').addClass('border');
+                    $('#email').addClass('border-danger');
+                    $('#email').addClass('shake-table');
+                    event.preventDefault();
+                }
+        
+        }
+
+        function rmvClass(field){
+            $(field).focus(function(){
+                $(field).removeClass('shake-table');
+                $(field).removeClass('border');
+                $(field).removeClass('border-danger');
+            });
+        }
     </script>
 </body>
 </html>

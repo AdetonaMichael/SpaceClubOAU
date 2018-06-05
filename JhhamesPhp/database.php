@@ -32,9 +32,9 @@ function fetch_custom($connect, $sql)
 	return $query;
 }
 
-function check_exist($connect, $row, $value, $tablename)
+function check_exist($connect, $col, $value, $tablename)
 {
-	$sql = "SELECT * FROM $tablename where $row = '$value'";
+	$sql = "SELECT * FROM $tablename where $col = '$value'";
 	$fetch = fetch_custom($connect, $sql);
 
 	if ($fetch && mysqli_num_rows($fetch)>0) :

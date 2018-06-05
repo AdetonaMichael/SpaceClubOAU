@@ -37,15 +37,20 @@
             );
 
 
+               
+            if(empty($name) || empty($department) || empty($matric_no) || empty($email) || empty($phone)):
+                $_SESSION['errorMessage'] = 'No fields Should be empty';
+            elseif(check_exist($connect,'reg_number',$matric_no,'member')):
+                $_SESSION['errorMessage'] = "Member already added";
+            else:
                 $insert = insert($array , $connect , 'member');
                 deleteAspirant();
-
                 if($insert):
                     $_SESSION['successMessage'] = '1 new member added';
                 else:
                     $_SESSION['errorMessage'] = 'error adding member, please try again';
                 endif;
-
+            endif;
                
         else:
 

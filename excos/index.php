@@ -159,7 +159,7 @@
             <!-- Modal body -->
             <div class="modal-body">
             
-                <form action="#" method="POST" class="bg-light p-4 ">
+                <form action="#" method="POST" class="bg-light p-4 " id="member-form">
                     <div class="form-group">
                         <label for="name"><b> Name</b> </label>
                         <input type="text" id="name" name="name" class="form-control">
@@ -300,6 +300,89 @@
             });
         });
         });
+
+        // valiadtion for Add member
+        $(document).ready(function(){
+            $('#member-form').submit(function(event){
+                var name = $('#name').val();
+                var department = $('#department').val();
+                var email = $('#email').val();
+                var matric = $('#matric').val();
+                var phone = $('#number').val();
+                // event.preventDefault();
+                validateEmptyName(name, event);
+                validateEmptyDept(department, event);
+                validateEmptyEmail(email, event);
+                validateEmptyMatric(matric, event);
+                validateEmptyPhone(phone, event);
+            });
+
+        });
+
+        rmvClass('#name');
+        rmvClass('#department');
+        rmvClass('#email');
+        rmvClass('#matric');
+        rmvClass('#number');
+
+    
+            function validateEmptyName(field, event){
+                if(field.trim() ==''){
+                    $('#name').addClass('border');
+                    $('#name').addClass('border-danger');
+                    $('#name').addClass('shake-table');
+                    event.preventDefault();
+                }
+        
+        }
+    
+            function validateEmptyDept(field, event){
+                if(field.trim() ==''){
+                    $('#department').addClass('border');
+                    $('#department').addClass('border-danger');
+                    $('#department').addClass('shake-table');
+                    event.preventDefault();
+                }
+        
+        }
+    
+            function validateEmptyMatric(field, event){
+                if(field.trim() ==''){
+                    $('#matric').addClass('border');
+                    $('#matric').addClass('border-danger');
+                    $('#matric').addClass('shake-table');
+                    event.preventDefault();
+                }
+        
+        }
+    
+            function validateEmptyPhone(field, event){
+                if(field.trim() ==''){
+                    $('#number').addClass('border');
+                    $('#number').addClass('border-danger');
+                    $('#number').addClass('shake-table');
+                    event.preventDefault();
+                }
+        
+        }
+    
+            function validateEmptyEmail(field, event){
+                if(field.trim() ==''){
+                    $('#email').addClass('border');
+                    $('#email').addClass('border-danger');
+                    $('#email').addClass('shake-table');
+                    event.preventDefault();
+                }
+        
+        }
+
+        function rmvClass(field){
+            $(field).focus(function(){
+                $(field).removeClass('shake-table');
+                $(field).removeClass('border');
+                $(field).removeClass('border-danger');
+            });
+        }
     </script>
 </body>
 </html>
