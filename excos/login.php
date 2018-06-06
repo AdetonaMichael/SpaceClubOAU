@@ -133,11 +133,15 @@
         $('#password').focus(function(){
             $('#pass-reply').text("");
             $('#login-box').removeClass('shake-table');
+            $('#pword').removeClass('border-danger');
+            $('#pword').removeClass('border');
         });
        //remove the shake class after they remove mouse from matric number
         $('#reg').focus(function(){
             $('#matric-reply').text("");
             $('#login-box').removeClass('shake-table');
+            $('#mat_no').removeClass('border-danger');
+            $('#mat_no').removeClass('border');
         });
 
     </script>

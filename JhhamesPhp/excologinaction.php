@@ -11,6 +11,7 @@ else :
             while ($row = mysqli_fetch_array($exco_details)) :
 
                 $_SESSION['excoDetails'] = array(
+                'id' => $row['id'],
                 'fname' => $row['firstname'],
                 'lname' => $row['lastname'],
                 'email' => $row['email'],

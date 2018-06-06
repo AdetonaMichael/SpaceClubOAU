@@ -6,6 +6,8 @@
     include '../JhhamesPhp/excologinaction.php';
     include '../JhhamesPhp/addMember.php';
     include '../JhhamesPhp/addAspirant.php';
+    include '../JhhamesPhp/updatePassword.php';
+    
 
     if(isset($_POST['aspirant']) && !isset($_POST['name'])):
         $deleteAspirant = deleteAspirant();
@@ -42,14 +44,32 @@
         <div class="container">
             <div class="dropdown " >
                 <a class="dropdown-toggle fa fa-user-circle text-dark" href="" style="text-decoration:none" data-toggle="dropdown">
-                    <?= $_SESSION['excoDetails']['fname']." ".$_SESSION['excoDetails']['lname']  ?>
+                    <?= $_SESSION['excoDetails']['fname'] . " " . $_SESSION['excoDetails']['lname'] ?>
                 </a>
                 <div class="dropdown-menu" style="z-index:9999">
-                    <a href="" class="dropdown-item" data-toggle="modal"> <span class="fa fa-pencil"></span> Details </a>
+                    <a href="" id="change_open" class="dropdown-item" data-toggle="modal"> <span class="fa fa-pencil"></span> Change password </a>
                     <a href="../JhhamesPhp/excologout.php" class="dropdown-item"> <span class="fa fa-sign-out"></span> Logout </a>
                 </div>
 
 
+            </div>
+        </div>
+    </nav>
+    <nav class="bg-white p-1 small " style="display:none;" id="password_section">
+        <div class="container " id="edit" style="display:one">
+            <div class="row">
+                <form action="" method="POST" class="col-10" id="passwordUpdateForm">
+                    <div class="input-group w-100 w-md-50">
+                        <input type="password" class="form-control border border-secondary rounded-left" name="newPassword" id="update_password" placeholder="New Password">
+                        <button class="fa fa-eye bg-white input-group-addon border rounded-right border-secondary" id="visibility"></button>
+                        <button class="btn btn-outline-secondary ml-2" name="updatePassword" value="<?= $_SESSION['excoDetails']['id'] ?>"> Update</button>
+                    </div>
+                    
+                </form>
+                <div class="col-2">
+               <button id="change_close" class="btn btn-secondary ml-auto rounded-circle"> <span class="fa fa-close"></span> </button>
+                
+                </div>
             </div>
         </div>
     </nav>
@@ -276,8 +296,9 @@
             });
         });
         });
-
-         $(document).ready(function(){
+        var james = <?=$_SESSION['excoDeatils']['id'] ?>
+        alert(james); 
+        $(document).ready(function(){
             $('#member-form').submit(function(event){
 
                 var name = $('#fname').val();
@@ -303,6 +324,41 @@
                 validateEmptyDept_2(department,event);
                 validateEmptyPhone_2(number,event);
             });
+
+            $('#visibility').click(function(event){
+                event.preventDefault();
+                if( $('#update_password').attr('type') == 'password' ){
+                    $('#update_password').attr('type', 'text');
+                }else{
+                    $('#update_password').attr('type','password');
+                }
+                $('#visibility').toggleClass('fa-eye fa-eye-slash');
+            });
+            
+            $('#change_open').click(function(){
+                $('#password_section').slideDown();
+            });
+
+            $('#change_close').click(function(){
+                $('#password_section').slideUp();
+            });
+           
+            $('#passwordUpdateForm').submit(function(event){
+                var passUpdate = $('#update_password').val();
+                    if(passUpdate.trim() == ''){
+                        $('#update_password').addClass('shake-table');
+                        $('#update_password').addClass('border');
+                        $('#update_password').addClass('rounded-left');
+                        $('#update_password').addClass('border-danger');
+                        event.preventDefault();
+                    }
+            });
+
+            $('#update_password').focus(function(){
+                $(this).removeClass('border');
+                $(this).removeClass('border-danger');
+                $(this).removeClass('shake-table');
+            });
         });
     
 
@@ -325,7 +381,7 @@
                     event.preventDefault();
                 }
         
-        }
+            }
     
             function validateEmptyName_2(field, event){
                 if(field.trim() ==''){
@@ -335,7 +391,7 @@
                     event.preventDefault();
                 }
         
-        }
+            }
     
             function validateEmptyDept(field, event){
                 if(field.trim() ==''){

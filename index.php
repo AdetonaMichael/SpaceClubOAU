@@ -177,25 +177,23 @@
           <p class="font-weight-bold"> NOTE: The form costs <strike>N</strike> 1,000</p>
             <hr>
         <p>Fill your contact details below as apiring member and to get notified of events before you become a member</p>
-        <form action="#" method="POST" class="bg-light p-4 ">
-            <div class="form-group">
-                <label for="name"><b> Name</b> </label>
-                <input type="text" id="name" name="name" class="form-control">
-            </div>
+       <form action="#" method="POST" class="bg-light p-4" id="aspirant-form">
+                        <div class="form-group">
+                            <label for="name"><b> Name</b> </label>
+                            <input type="text" id="name" name="name" class="form-control">
+                        </div>
 
-            <div class="form-group">
-                <label for="department"> <b>Department </b> </label>
-                <input type="text" id="department" name="department" class="form-control">
-            </div>
-            
-            <div class="form-group">
-                <label for="number"> <b>Phone Number </b></label>
-                <input type="text" id="number"name="number" class="form-control">
-            </div>
-            <button class="btn btn-outline-primary" type="submit" name="addAspirant">Submit</button>
-
-
-        </form>    
+                        <div class="form-group">
+                            <label for="department"> <b>Department </b> </label>
+                            <input type="text" id="department" name="department" class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="number"> <b>Phone Number </b></label>
+                            <input type="text" id="number"name="number" class="form-control">
+                        </div>
+                        <button class="btn btn-outline-primary" type="submit" name="addAspirant">Submit</button>
+                    </form>    
       </div>
 
       <!-- Modal footer -->
@@ -212,5 +210,61 @@
     <script src="slick/slick.js"></script>
     <script src="slick/slick.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script>
+                 
+            $('#aspirant-form').submit(function(event){
+                var name = $('#name').val();
+                var department = $('#department').val();
+                var number = $('#number').val();
+                
+                validateEmptyName_2(name,event);
+                validateEmptyDept_2(department,event);
+                validateEmptyPhone_2(number,event);
+            });
+
+            rmvClass('#name');
+
+            rmvClass('#number');
+
+            rmvClass('#department');
+
+            function validateEmptyName_2(field, event){
+                if(field.trim() ==''){
+                    $('#name').addClass('border');
+                    $('#name').addClass('border-danger');
+                    $('#name').addClass('shake-table');
+                    event.preventDefault();
+                }
+        
+            }
+
+            function validateEmptyDept_2(field, event){
+                if(field.trim() ==''){
+                    $('#department').addClass('border');
+                    $('#department').addClass('border-danger');
+                    $('#department').addClass('shake-table');
+                    event.preventDefault();
+                }
+        
+            }
+            
+            function validateEmptyPhone_2(field, event){
+                if(field.trim() ==''){
+                    $('#number').addClass('border');
+                    $('#number').addClass('border-danger');
+                    $('#number').addClass('shake-table');
+                    event.preventDefault();
+                }
+        
+            }
+
+            function rmvClass(field){
+            $(field).focus(function(){
+                $(field).removeClass('shake-table');
+                $(field).removeClass('border');
+                $(field).removeClass('border-danger');
+            });
+        }
+    </script>
 </body>
 </html>
